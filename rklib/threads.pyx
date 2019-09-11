@@ -57,10 +57,10 @@ class thread_rets(object):
 if __name__ == "__main__":
 	Watcher()#watch function must be in front of threads_tasks
 	tasks = []
-	for i in xrange(4):
+	for i in range(4):
 		thread_=threading.Thread(target=foreverLoop)
 		tasks.append(thread_)
 		thread_.start()
-	for i in xrange(4):
+	for i in range(4):
 		tasks[i].join()
 

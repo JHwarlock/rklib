@@ -10,7 +10,7 @@ def initlog(logfile):
 	hdlr.setFormatter(formatter)
 	logger.addHandler(hdlr)
 	logger.setLevel(logging.NOTSET)
-	#logger.setLevel(logging.NOTSET)
+	##logger.setLevel(logging.NOTSET)
 	##logger.error(message)
 	##logger.info(message)
 	##logger.exception(e)
@@ -26,7 +26,7 @@ if __name__ == "__main__":
 		1+"21313"
 	except Exception,e:
 		logger.exception(e)
-	print closelog()
+	print(closelog())
 #else:
 #	module_debug = initlog("pymodule_debug.log")
 #	os.chmod("pymodule_debug.log",0b110110110)

@@ -34,8 +34,7 @@ if __name__ == '__main__':
 	import time, os
 	pb = ProgressBar(xmax=101*33)
 	for i in range(101):
-		for j in xrange(33):
-			#print pb()
+		for j in range(33):
 			pb()
 			time.sleep(0.01)
 	pb.end()

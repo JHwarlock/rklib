@@ -5,10 +5,6 @@ from multiprocessing.pool  import ThreadPool
 import time
 
 def func(msg):
-	#b = 0.0
-	#for i in xrange(100000):
-	#	for j in xrange(10000):
-	#		b += 1
 	return multiprocessing.current_process().name + '-' + msg
 
 import signal
@@ -42,12 +38,12 @@ class MPone(object):
 
 if __name__ == "__main__":
 	mp = MPone(8)
-	for i in xrange(20):
+	for i in range(20):
 		msg = "hello %d"%i
 		mp.run(func,[msg,])
 	mp.join()
 	for ret in mp.results:
-		print ret
+		print(ret)
 	
 
 

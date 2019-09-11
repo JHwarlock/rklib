@@ -21,7 +21,7 @@ def ctimer(function):
 	return ftimer
 
 def requirtasks(fn): # for qsubid
-	f = file(fn,"r")
+	f = open(fn,"r")
 	task_sh = []
 	for line in f:
 		tasksh = line.rstrip("\n")
@@ -87,7 +87,7 @@ def cummin_small_large(FDR_arr):
 	leng = len(FDR_arr)
 	if FDR_arr[leng-1] > 1:
 		FDR_arr[leng-1] = 1.000000
-	for i in xrange(leng-1):
+	for i in range(leng-1):
 		index = leng-1-i
 		index_left = index -1
 		if FDR_arr[index_left] > FDR_arr[index]:
@@ -111,7 +111,7 @@ def piperead(fn):
 	if fn == "-":
 		f = sys.stdin
 	else:
-		f = file(fn,"r")
+		f = open(fn,"r")
 	return f
 
 class config_init():
@@ -229,5 +229,5 @@ if __name__ == "__main__":
 	#print exon_pipe_config
 	"""
 	a = [["AAA",2,6,11],["AAB",2,5,11],["AAB",2,7,11]]
-	print us_rsort(a,2)
+	print(us_rsort(a,2))
 

@@ -20,12 +20,13 @@ def strtri(n,sep=','):
 def f2str(f):
 	return "%.3f"%f
 
+def runtest():
+	print(strtri(423))
+	print(strtri(21313))
+	print(strtri(-411))
+	print(strtri(-41))
+	print(strtri(-132131))
+
 if __name__ == "__main__":
-	print strtri(423)
-	print strtri(21313)
-	print strtri(-411)
-	print strtri(-41)
-	print strtri(-132131)
-
-
+	runtest()
 

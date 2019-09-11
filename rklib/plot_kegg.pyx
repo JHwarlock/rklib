@@ -6,7 +6,7 @@ import os
 ##plot_list is :
 ##geneid  mark(>0 red  or <0 blue  or = 0: yellow)
 def __parse_kegg_db(db_list):
-	db = file(db_list,"r")
+	db = open(db_list,"r")
 	h = {}#keggid -> geneORcompoundORdurgORothers -> [[],]
 	hname = {}#geneORcompoundORdurg... -> [keggid,]
 	for line in db:
@@ -25,12 +25,12 @@ def __parse_kegg_db(db_list):
 			hname[name] = [keggid,]
 	#for keggid in h:
 	#	for name in h[keggid]:
-	#		print keggid+"\t"+name+"\t"+str(h[keggid][name])
+	#		print(keggid+"\t"+name+"\t"+str(h[keggid][name]))
 	db.close()
 	return h,hname
 
 def __parse_plot_list(plot_list):
-	f = file(plot_list,"r")
+	f = open(plot_list,"r")
 	harr = {}
 	for line in f:
 		if line.startswith("#"):continue
@@ -54,7 +54,7 @@ class map_html(object):
 		#<area shape=rect        coords=547,113,593,130  href="/dbget-bin/www_bget?hsa:85365"    title="85365 (ALG2)\nXXX\nXXXX" />
 		self.elements.append(self.style%info)
 	def finish(self):
-		fout = file(self.outhtml,"w")
+		fout = open(self.outhtml,"w")
 		fout.write("\n".join([self.head,"\n".join(self.elements),self.end]))
 		fout.close()
 		return 0
@@ -72,14 +72,14 @@ class table_html(object):
 		self.content = []
 		##add_table listhead
 		strcontent = "<tr>\n"
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += "<th>"+str(listhead[i])+"</th>\n"
 		strcontent += "</tr>"
 		self.content.append(strcontent)
 	def add_row(self,content):
 		assert len(content) == self.length
 		strcontent = "<tr>\n"
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += "<td>"+str(content[i])+"</td>\n"
 		strcontent += "</tr>"
 		self.content.append(strcontent)
@@ -156,7 +156,7 @@ html_end = \
 
 from operator import itemgetter, attrgetter
 def do_plot_kegg_first_html(hmark,pathway_list):
-	f = file(pathway_list,"r")
+	f = open(pathway_list,"r")
 	content = []
 	listhead = ["#KEGGid","Description","Class","SubClass","Numbers"]
 	link_style = """<a href="mark_maps/%s.html">%s</a>"""
@@ -168,10 +168,10 @@ def do_plot_kegg_first_html(hmark,pathway_list):
 	f.close()
 	arr = sorted(content,key=itemgetter(4),reverse=True)
 	tables = table_html(listhead)
-	for i in xrange(len(arr)):
+	for i in range(len(arr)):
 		tables.add_row(arr[i])
 	str_tables = str(tables)
-	fout = file("kegg_analysis.html","w")
+	fout = open("kegg_analysis.html","w")
 	fout.write("\n".join([html_start,str_tables,html_end]))
 	fout.close()
 	return 0
@@ -200,9 +200,9 @@ def plot_kegg(plot_list,db_list,pathway_list,indir_pngs="./",outdir_htmlpngs = "
 			except:
 				sys.stderr.write("Error: %s cannot creat PNG outdir: %s!\n"%("[plot_map]",outdir_htmlpngs))
 				sys.exit(1)
-		#print indir_pngs
-		#print keggid
-		#print outdir_htmlpngs
+		#print(indir_pngs)
+		#print(keggid)
+		#print(outdir_htmlpngs)
 		image_instance = image_plot(indir_pngs+os.path.sep+keggid + ".png",outdir_htmlpngs+os.path.sep+keggid+".mark.png")
 		html_instance = map_html(keggid,outdir_htmlpngs+os.path.sep+keggid+".html")
 		hcoor = {}
@@ -223,7 +223,7 @@ def plot_kegg(plot_list,db_list,pathway_list,indir_pngs="./",outdir_htmlpngs = "
 								hcoor[coor] = [shape,types,href,comment,title]
 							else:
 								tmpcomment +=(", "+comment)
-								for i in xrange(len(types)):
+								for i in range(len(types)):
 									if types[i] == -1:types[i] = tmptypes[i]
 									elif tmptypes[i] == -1:pass
 									else:
@@ -235,7 +235,6 @@ def plot_kegg(plot_list,db_list,pathway_list,indir_pngs="./",outdir_htmlpngs = "
 				types = None
 				comment = None
 				infos = hinfo[keggid][name]
-				#print infos
 				for tmp_info in infos:
 					shape,coor,href,title = tmp_info.split("\t")
 					if coor not in hcoor:

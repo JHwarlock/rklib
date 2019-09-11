@@ -15,7 +15,7 @@ class table_html(object):
 		self.length = len(self.listhead)
 		self.content = []
 		strcontent = "<tr>"
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += "<th>"+str(listhead[i])+"</th>"
 		strcontent += "</tr>"
 		self.content.append(strcontent)
@@ -23,17 +23,17 @@ class table_html(object):
 		try:
 			assert len(content) == self.length
 		except:
-			print len(content),self.length
+			print(len(content),self.length)
 			raise
 		strcontent = "<tr>"
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += "<td><pre>"+str(content[i])+"</pre></td>"
 		strcontent += "</tr>"
 		self.content.append(strcontent)
 	def add_noprerow(self,content):
 		assert len(content) == self.length
 		strcontent = "<tr>"
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += "<td>"+str(content[i])+"</td>"
 		strcontent += "</tr>"
 		self.content.append(strcontent)
@@ -76,7 +76,7 @@ class simple_main(object):
 		return "\n".join([self.start,self.content,self.end])
 
 def get_sampleinfo(sampleinfo):
-	f = file(sampleinfo,"r")
+	f = open(sampleinfo,"r")
 	header = ["#","Samplename","Filename","SN","Category","Category name"]
 	for line in f:
 		if line.startswith("##"):continue
@@ -84,7 +84,6 @@ def get_sampleinfo(sampleinfo):
 			header = ["#",] + line.rstrip("\n")[1:].split("\t")
 			break
 	f.seek(0)
-	#print header
 	table = table_html(header,"Table: sample information list")
 	idx = 1
 	samplename = []
@@ -97,14 +96,13 @@ def get_sampleinfo(sampleinfo):
 		arr = line.rstrip("\n").split()
 		sn = arr[0]
 		files.append(arr[1].split(","))
-		#print [str(idx),"""<a href="#%s">%s</a>"""%(sn,sn)] + arr[1:]
 		table.add_row([str(idx),"""<a href="#%s">%s</a>"""%(sn,sn)] + arr[1:])
 		idx += 1
 		samplename.append(sn)
 	return str(table),samplename,files
 
 def xls2table(fxls,title=None,header=None):
-	f = file(fxls,"r")
+	f = open(fxls,"r")
 	if header == None:
 		header = "";
 	if not title:
@@ -131,4 +129,4 @@ def xls2table(fxls,title=None,header=None):
 	f.close()
 	return str(table),note
 if __name__  == "__main__":
-	print get_sampleinfo(sys.argv[1])
+	print(get_sampleinfo(sys.argv[1]))

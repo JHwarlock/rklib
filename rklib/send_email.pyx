@@ -117,8 +117,8 @@ try:
 	#发送邮件
 	smtp.sendmail(fromMail,toMail,mail.as_string())
 	smtp.close()
-	print 'OK'
+	print('OK')
 except Exception as e:
-	    print e
+	    print(e)
 """
 

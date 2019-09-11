@@ -8,7 +8,7 @@ import urllib,urllib2
 #redirections, cookies and more.
 
 def translate(text):
-	'''模拟浏览器的行为，向Google Translate的主页发送数据，然后抓取翻译结果 '''
+	"""模拟浏览器的行为，向Google Translate的主页发送数据，然后抓取翻译结果"""
 	#text 输入要翻译的英文句子
 	text_1=text
 	#'langpair':'en'|'zh-CN'从英语到简体中文

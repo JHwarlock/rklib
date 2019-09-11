@@ -17,18 +17,18 @@ package_dir = {"rklib": "rklib"}
 
 metadata = {
 		"name":"rklib",
-		"version":"1.0.0",
+		"version":"2.0.0",
 		'description': "rklib",
 		'long_description': __doc__,
 		'author': "rongzhengqin",
 		'author_email': "rongzhengqin@basepedia.com",
-		'license': "MIT",
+		'license': "BSD 2",
 		'platforms': ["Linux","Mac OS-X","UNIX"],
 		'url': "https://github.com/zju3351689/rklib",
 		'packages': package_list,
 		'package_dir': package_dir,
 		'data_files': [],
-		'ext_modules': cythonize("*/*.pyx"),
+		'ext_modules': cythonize("*/*.pyx",language_level=3),
 		}
 
 if __name__ == '__main__':

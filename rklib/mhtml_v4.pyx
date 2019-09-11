@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+#reload(sys)
+#sys.setdefaultencoding('utf8')
 
 ##use decoder method
 def athtml(content,tag,cssclass=None,idname=None):
@@ -25,7 +25,7 @@ class table_html(object):
 		self.content= []
 		self.title  = table_title
 		strcontent = ""
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += athtml(listhead[i],"th") ## 最后加入注解，格式说明：用百分号开头 ##：title ，# 表头，% 表头说明 
 		strcontent = athtml(strcontent,"tr")
 		strcontent = athtml(strcontent,"thead")	
@@ -34,7 +34,7 @@ class table_html(object):
 	def add_row(self,content, number = 1):# rowspan 参数number取消
 		assert len(content) == self.length
 		strcontent = ""
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += athtml(content[i],"td")
 		strcontent = athtml(strcontent,"tr")
 		strcontent = athtml(strcontent,"tbody")
@@ -43,7 +43,7 @@ class table_html(object):
 	def add_noprerow(self,content):
 		assert len(content) == self.length
 		strcontent = ""
-		for i in xrange(self.length):
+		for i in range(self.length):
 			strcontent += athtml(content[i],"td")
 		strcontent = athtml(strcontent,"tr")
 		strcontent = athtml(strcontent,"tbody")
@@ -152,7 +152,7 @@ class simple_main(object):
 			self.content += """<div align="center"><img src='%s' width = "%d%%" height="%d%%" /></div>"""%(content, width, height)
 	def add_image_note(self,listcontent,digit=0,cssclass="list-unstyled"):
 		content = ""
-		for i in xrange(len(listcontent)):
+		for i in range(len(listcontent)):
 			content += athtml(listcontent[i],"li")
 			if digit:
 				content = athtml(content,"ol",cssclass=cssclass)
@@ -200,7 +200,7 @@ class simple_main(object):
 	
 	def add_li(self,listcontent,digit=0,cssclass=None):
 		content = ""
-		for i in xrange(len(listcontent)):
+		for i in range(len(listcontent)):
 			content += athtml(listcontent[i],"li")
 		if digit:
 			content = athtml(content,"ol",cssclass=cssclass)
@@ -230,7 +230,7 @@ class simple_main(object):
 			   </div>
 			</div>
 			"""
-			for i in xrange(len(listcontent)):
+			for i in range(len(listcontent)):
 				temp += athtml(listcontent[i][0],"dt")
 				temp += athtml(listcontent[i][1],"dd")
 			temp2 = athtml(temp,"dl",cssclass=cssclass)
@@ -256,7 +256,7 @@ class simple_main(object):
 		</p>
 		"""
 		
-		for i in xrange(numbers):
+		for i in range(numbers):
 			content += athtml("""<a id="example" href="%s" title="%s" ><img src="%s" /></a><p align="center">%s</p>"""%(imgprefixs[i]+suffix,descriptlist[i],imgprefixs[i]+suffix,descriptlist[i]),"li")
 		self.content += template % (imgprefixs[0]+suffix,content)
 
@@ -324,7 +324,7 @@ class simple_main(object):
 		return "\n".join([self.start,self.cato,self.content,self.end])
 	
 def get_sampleinfo(sampleinfo, number = 1):
-	f = file(sampleinfo,"r")
+	f = open(sampleinfo,"r")
 	header = ["#","Samplename","Filename","SN","Category","Category name"]
 	for line in f:
 		if line.startswith("##"):continue
@@ -350,7 +350,7 @@ def get_sampleinfo(sampleinfo, number = 1):
 	return str(table),samplename,files
 
 def xls2table(fxls,title=None,header=None, rowNumber = 10, merge_number = 1):
-	f = file(fxls,"r")
+	f = open(fxls,"r")
 	if header == None:
 		header = "";
 	if not title:
@@ -390,7 +390,6 @@ def xls2table(fxls,title=None,header=None, rowNumber = 10, merge_number = 1):
 	return str(table)+"""<strong><a href="%s">点击查看详表</a></strong>\n"""%fxls,descripts,table.tabidx
 
 if __name__  == "__main__":
-	#print get_sampleinfo(sys.argv[1])
 	import sys
 	import mhtml_v4
 	html_main = mhtml_v4.simple_main(title="链特异性文库-RNAseq分析结果") ## 添加分析title
