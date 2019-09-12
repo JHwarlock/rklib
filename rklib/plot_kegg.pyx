@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import sys
-import Image
-import ImageDraw
+from PIL import Image
+from PIL import ImageDraw
 import os
 ##plot_list is :
 ##geneid  mark(>0 red  or <0 blue  or = 0: yellow)

@@ -1,6 +1,5 @@
 import sys
 import os
-import log
 import time
 import signal
 import shutil
@@ -95,7 +94,7 @@ def cummin_small_large(FDR_arr):
 	return FDR_arr
 
 try:
-	from ConfigParser import ConfigParser
+	from configparser import ConfigParser
 except Exception,e:
 	sys.stderr.write("[CONFIG_ERROR]: Cann't import the 'Config Module'\n")
 	#log.error_log.error("[Config_Error]: Cann't import the 'Config Module'")

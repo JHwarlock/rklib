@@ -14,8 +14,9 @@ from email import encoders
 from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEBase import MIMEBase
+#from email.MIMEMultipart import MIMEMultipart
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
 import smtplib
 
 sys.path.append("/home/rongzhengqin/Cython/git/private")

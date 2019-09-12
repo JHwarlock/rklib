@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
-import urllib,urllib2
+import urllib
 
 #urllib:
-#urllib2: The urllib2 module defines functions and classes which help in opening
 #URLs (mostly HTTP) in a complex world — basic and digest authentication,
 #redirections, cookies and more.
 
@@ -15,12 +14,12 @@ def translate(text):
 	values={'hl':'zh-CN','ie':'UTF-8','text':text_1,'langpair':"'en'|'zh-CN'"}
 	url='https://translate.google.cn'
 	data = urllib.urlencode(values)
-	req = urllib2.Request(url,data)
+	req = urllib.request(url,data)
 	#模拟一个浏览器
 	browser='Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)'
 	req.add_header('User-Agent',browser)
 	#向谷歌翻译发送请求
-	response = urllib2.urlopen(req)
+	response = urllib.urlopen(req)
 	#读取返回页面
 	html=response.read()
 	#从返回页面中过滤出翻译后的文本

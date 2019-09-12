@@ -391,7 +391,7 @@ def xls2table(fxls,title=None,header=None, rowNumber = 10, merge_number = 1):
 
 if __name__  == "__main__":
 	import sys
-	import mhtml_v4
+	from rklib import mhtml_v4
 	html_main = mhtml_v4.simple_main(title="链特异性文库-RNAseq分析结果") ## 添加分析title
 	#html_main.add_honor_title(title="链特异性文库-RNAseq生物信息分析结果")
 	html_main.add_head_color("1. 分析基本流程", headlevel = 2)
