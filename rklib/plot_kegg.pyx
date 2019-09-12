@@ -227,7 +227,7 @@ def plot_kegg(plot_list,db_list,pathway_list,indir_pngs="./",outdir_htmlpngs = "
 									if types[i] == -1:types[i] = tmptypes[i]
 									elif tmptypes[i] == -1:pass
 									else:
-										if types[i] <> tmptypes[i]:types[i] = 0
+										if types[i] != tmptypes[i]:types[i] = 0
 								hcoor[coor] = [shape,types,href,tmpcomment,title]
 						else:
 							hcoor[coor] = [shape,types,href,comment,title]
@@ -241,13 +241,13 @@ def plot_kegg(plot_list,db_list,pathway_list,indir_pngs="./",outdir_htmlpngs = "
 						hcoor[coor] = [shape,types,href,comment,title]
 		for coor in hcoor:
 			shape,types,href,comment,title = hcoor[coor]
-			if types <> None:
+			if types is not None:
 				html_instance.add_element((shape,coor,href,comment+" || "+title))
-				if types[0] <> -1:
+				if types[0] != -1:
 					color = colors[types[0]]
 				#print [shape,coor,color]
 					image_instance.drawplot([shape,coor,color])
-				if types[1] <> -1:
+				if types[1] != -1:
 					color = colors[types[1]]
 					image_instance.drawmark([shape,coor,color])
 				#if len(types) == 2:
