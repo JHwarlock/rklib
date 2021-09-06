@@ -15,7 +15,7 @@ def ctimer(function):
 		t0 = time.time()
 		result = function(*args, **kwargs)
 		t1 = time.time()
-		sys.stderr.write("[INFO] '%s' running cost: %s seconds\n" %(function.func_name, str(t1-t0)))
+		sys.stderr.write("[INFO] '%s' running cost: %s seconds\n" %(function.__name__, str(t1-t0)))
 		return result
 	return ftimer
 

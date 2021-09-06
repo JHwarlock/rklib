@@ -19,7 +19,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 import smtplib
 
-sys.path.append("/home/rongzhengqin/Cython/git/private")
+sys.path.append("/home/rongzhengqin2/Cython/git/private")
 from emailinfo import *
 #print testmsg
 #print project_mail
@@ -30,7 +30,7 @@ def _format_addr(s):
 	name, addr = parseaddr(s)
 	return formataddr(( \
 			Header(name, 'utf-8').encode(), \
-			addr.encode('utf-8') if isinstance(addr, unicode) else addr))
+			addr))#addr.encode('utf-8') if isinstance(addr, unicode) else addr))
 def _combine_addr(name,addr):
 	return "%s<%s>"%(name,addr)
 
@@ -42,7 +42,8 @@ class Emailaddr(object):
 		self.fc = _format_addr(self.cb)
 
 class Emailserver(object):
-	def __init__(self,from_addr="master",to_addr=["rongzhengqin","h3351689f"],cc=["service",],project_mail=project_mail):
+	def __init__(self,from_addr="master",to_addr=["rongzhengqin","h3351689f"],cc=["service",],project_mail=project_mail,add_mail={}):
+		project_mail.update(add_mail)
 		self.login_user= project_mail[from_addr]
 
 		self.from_addr = Emailaddr(from_addr,project_mail[from_addr])
@@ -61,10 +62,10 @@ class Emailserver(object):
 		mail = msg.attach(MIMEText(msgcontent,"html","utf-8"))
 		msg['From'] = self.from_addr.fc
 		
-		msg['To']   = ",".join(map(lambda i: i.fc,self.to_addr))
-		msg['CC']   = ",".join(map(lambda i: i.fc,self.cc))     ##self.cc.fc
+		msg['To']   = ",".join(list(map(lambda i: i.fc,self.to_addr)))
+		msg['CC']   = ",".join(list(map(lambda i: i.fc,self.cc)))     ##self.cc.fc
 		msg['Subject'] = Header(subject, 'utf-8').encode()
-		toaddrs = map(lambda i: i.addr,self.to_addr)  + map(lambda i: i.addr,self.cc)
+		toaddrs = list(map(lambda i: i.addr,self.to_addr))  + list(map(lambda i: i.addr,self.cc))
 		if attachment is not None:
 			with open(attachment, 'rb') as f:
 				# 设置附件的MIME和文件名，这里是rar类型: .MIMEBase（_maintype，_subtype，*，policy = compat32，** _ params ）：_maintpe是Content-Type主要类型（text or image），_subtype是Content-Type次要类型（plain or gif），_params是一个键值字典参数直接传递给Message.add_header
@@ -81,12 +82,22 @@ class Emailserver(object):
 				# 添加到MIMEMultipart:
 				msg.attach(mime)
 		# smtpPort = '25' ,  sslPort  = '587'
-		server = smtplib.SMTP_SSL(self.smtp_server, 587, timeout=3)
-		server.ehlo()
-		#server.starttls()  #encrypt email
-		server.set_debuglevel(1)
-		server.login(self.login_user, self.passwd)
-		server.sendmail(self.from_addr.addr, toaddrs, msg.as_string())
+		flag = 0
+		while flag < 100:
+			try:
+				server = smtplib.SMTP_SSL(self.smtp_server, 587, timeout=3)
+				server.ehlo()
+				#server.starttls()  #encrypt email
+				server.set_debuglevel(1)
+				server.login(self.login_user, self.passwd)
+				#server.starttls() # 若端口为587，则需要	在 smtp.login() 前加上 smtp.starttls()。若端口为465，则不需要TLS连接，加上反而会报错。
+				server.sendmail(self.from_addr.addr, toaddrs, msg.as_string())
+				flag = 100
+			except:
+				flag += 1
+				print("Sleep")
+				time.sleep(10)
+				pass
 		server.quit()
 		return 0
 

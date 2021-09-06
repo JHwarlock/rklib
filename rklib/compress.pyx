@@ -7,7 +7,7 @@ def cfread(fname,mode,level=6):
 	fp = None
 	try:
 		if fname.endswith(".gz"):
-			fp = gzip.open(fname,mode+"b",level)
+			fp = gzip.open(fname,mode+"t",level)
 		elif fname.endswith(".bz2"):
 			fp = bz2.BZ2File(fname)
 		else:
@@ -26,7 +26,7 @@ def tarxpath(fn,path):
 def gz_file(fq_file,mode,level=6):
 	try:
 		if fq_file.endswith(".gz"):
-			fq_fp = gzip.open(fq_file,mode+"b",level)
+			fq_fp = gzip.open(fq_file,mode+"t",level)
 		else:
 			sys.stderr.write("[INFO] read file '%s'%s"%(fq_file,linesep))
 			fq_fp = open(fq_file,mode)
