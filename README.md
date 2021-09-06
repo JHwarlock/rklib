@@ -1,9 +1,9 @@
 # rklib
 Some practical tools. 
 
-Now it only support Python 2(>=2.6.5)
+It is now compatible with python3 in version 2+.
 
-It will be compatible with python 3 in version 2.0
+
 
 # install
 
