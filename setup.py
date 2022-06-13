@@ -17,7 +17,7 @@ package_dir = {"rklib": "rklib"}
 
 metadata = {
 		"name":"rklib",
-		"version":"2.0.3",
+		"version":"2.1.3",
 		'description': "rklib",
 		'long_description': __doc__,
 		'author': "rongzhengqin",
